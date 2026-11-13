@@ -27,11 +27,13 @@ npm run build
 Actual test output:
 
 ```
- ✓ tests/status.test.ts (5 tests) 5ms
- ✓ tests/filter.test.ts (3 tests) 13ms
+ ✓ tests/status.test.ts (5 tests) 8ms
+ ✓ tests/format.test.ts (2 tests) 6ms
+ ✓ tests/status-badge.test.ts (4 tests) 18ms
+ ✓ tests/filter.test.ts (3 tests) 27ms
 
- Test Files  2 passed (2)
-      Tests  8 passed (8)
+ Test Files  4 passed (4)
+      Tests  14 passed (14)
 ```
 
 `npm run typecheck` reports no errors and `npm run build` compiles successfully.
