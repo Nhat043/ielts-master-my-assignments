@@ -27,13 +27,14 @@ npm run build
 Actual test output:
 
 ```
- ✓ tests/status.test.ts (5 tests) 8ms
- ✓ tests/format.test.ts (2 tests) 6ms
- ✓ tests/status-badge.test.ts (4 tests) 18ms
- ✓ tests/filter.test.ts (3 tests) 27ms
+ ✓ tests/format.test.ts (2 tests) 10ms
+ ✓ tests/status.test.ts (5 tests) 14ms
+ ✓ tests/status-badge.test.ts (4 tests) 21ms
+ ✓ tests/filter.test.ts (3 tests) 32ms
+ ✓ tests/assignment-list.test.ts (4 tests) 280ms
 
- Test Files  4 passed (4)
-      Tests  14 passed (14)
+ Test Files  5 passed (5)
+      Tests  18 passed (18)
 ```
 
 `npm run typecheck` reports no errors and `npm run build` compiles successfully.
@@ -116,4 +117,4 @@ machine's clock.
 ## Not done
 
 - No real authentication (S01 is simulated), no database, not deployed.
-- No filtering or sorting of the list, and no end-to-end UI tests.
+- No filtering or sorting of the list, and no end-to-end browser tests.

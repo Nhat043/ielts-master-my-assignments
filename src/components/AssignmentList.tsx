@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Fetches the endpoint from the browser rather than reading the data directly in a
+ * server component. That keeps the server/client boundary real: whatever reaches this
+ * file has already been filtered server-side and travelled over HTTP, exactly as a
+ * production client would receive it.
+ */
+
 import { useEffect, useState } from "react";
 import { formatDateTime } from "@/lib/format";
 import type { AssignmentDTO } from "@/lib/types";
@@ -14,6 +21,8 @@ export function AssignmentList() {
   const [state, setState] = useState<State>({ kind: "loading" });
 
   useEffect(() => {
+    // Guards against a response arriving after the component has unmounted, which
+    // would otherwise set state on something no longer on screen.
     let cancelled = false;
     fetch("/api/assignments")
       .then((r) => {
@@ -23,7 +32,9 @@ export function AssignmentList() {
       .then((d: { now: string; assignments: AssignmentDTO[] }) => {
         if (!cancelled) setState({ kind: "ready", now: d.now, items: d.assignments });
       })
-      .catch(() => !cancelled && setState({ kind: "error" }));
+      .catch(() => {
+        if (!cancelled) setState({ kind: "error" });
+      });
     return () => {
       cancelled = true;
     };
@@ -38,6 +49,8 @@ export function AssignmentList() {
     <>
       <p className="clock">Thời điểm giả lập: {formatDateTime(state.now)} (GMT+7)</p>
       <ul className="list">
+        {/* Hidden from assistive tech: below 640px the header row is not rendered and
+            each card repeats its own label, so announcing it here would duplicate. */}
         <li className="row row-head" aria-hidden="true">
           <span>Tên bài</span>
           <span>Hạn nộp</span>
